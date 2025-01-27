@@ -22,13 +22,13 @@ export class User {
   @Prop()
   phone: string;
 
-  @Prop()
+  @Prop({ default: 'USERS' })
   role: string;
 
-  @Prop()
+  @Prop({ default: 'LOCAL' })
   accountType: string;
 
-  @Prop()
+  @Prop({ default: false })
   isActive: boolean;
 
   @Prop()
