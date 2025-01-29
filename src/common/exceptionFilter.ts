@@ -9,7 +9,7 @@ import {
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  catch(exception: InternalServerErrorException, host: ArgumentsHost) {
+  catch(exception: InternalServerErrorException | any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
@@ -34,10 +34,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     // Throw an exceptions for either
     // MongoError, ValidationError, TypeError, CastError and Error
-    if (exception.message) {
-      responseMessage('Error', exception.message);
+    if ((exception.response.message as any) || exception.message) {
+      responseMessage('Error', exception.response.message || exception.message);
     } else {
-      responseMessage(exception.name, exception.message);
+      responseMessage(
+        exception.name,
+        exception.response.message || exception.message,
+      );
     }
   }
 }
