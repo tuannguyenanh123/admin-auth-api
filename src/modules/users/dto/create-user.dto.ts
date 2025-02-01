@@ -1,6 +1,13 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateUserDto {
+  @IsOptional()
   @IsNotEmpty({
     message: 'Name is required',
   })
@@ -18,11 +25,13 @@ export class CreateUserDto {
   @MinLength(10)
   password: string;
 
+  @IsOptional()
   @IsNotEmpty({
     message: 'Address is required',
   })
   address: string;
 
+  @IsOptional()
   @IsNotEmpty({
     message: 'Phone number is required',
   })
